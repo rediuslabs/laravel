@@ -2,27 +2,15 @@
 
 namespace Tests;
 
-use Overtrue\LaravelPackage\PackageServiceProvider;
+use Redius\RediusServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-    /**
-     * Load package service provider.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
     protected function getPackageProviders($app)
     {
-        return [PackageServiceProvider::class];
+        return [RediusServiceProvider::class];
     }
 
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     */
     protected function getEnvironmentSetUp($app)
     {
         // Setup default database to use sqlite :memory:
@@ -37,7 +25,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
-        $this->loadMigrationsFrom(dirname(__DIR__) . '/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
+        $this->loadMigrationsFrom(dirname(__DIR__).'/migrations');
     }
 }

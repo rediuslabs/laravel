@@ -9,12 +9,13 @@
         }
     ],
     "require": {
+        "php": ">=8.1",
         "laravel/framework": "^9.4",
         "phpstan/phpstan": "^1.4"
     },
     "autoload": {
         "psr-4": {
-            "Overtrue\\LaravelPackage\\": "src"
+            "Redius\\": "src"
         }
     },
     "autoload-dev": {
@@ -26,14 +27,15 @@
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^9.0",
         "orchestra/testbench": "^7.1",
-        "friendsofphp/php-cs-fixer": "^3.0",
         "vimeo/psalm": "^4.10",
-        "jetbrains/phpstorm-attributes": "^1.0"
+        "jetbrains/phpstorm-attributes": "^1.0",
+        "laravel/pint": "^1.1",
+        "brainmaestro/composer-git-hooks": "dev-master"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "\\Overtrue\\LaravelPackage\\PackageServiceProvider"
+                "Redius\\RediusServiceProvider"
             ]
         },
         "hooks": {
@@ -60,8 +62,8 @@
             "cghooks update"
         ],
         "cghooks": "vendor/bin/cghooks",
-        "check-style": "php-cs-fixer fix --using-cache=no --diff --dry-run --ansi",
-        "fix-style": "php-cs-fixer fix --using-cache=no --ansi",
+        "check-style": "vendor/bin/pint --test",
+        "fix-style": "vendor/bin/pint",
         "test": "phpunit --colors",
         "phpstan": "phpstan analyse",
         "psalm": "psalm --show-info=true --no-cache",
