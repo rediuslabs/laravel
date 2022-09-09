@@ -1,6 +1,6 @@
 {
-    "name": "overtrue/laravel-package",
-    "description": "Laravel package template",
+    "name": "overtrue/laravel-redius",
+    "description": "Redius API builder for Laravel",
     "license": "MIT",
     "authors": [
         {

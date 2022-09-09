@@ -1,14 +1,14 @@
-Laravel Package
+Laravel Redius
 ---
 
-Laravel package template.
+[Redius](https://redius.xyz) API builder for Laravel
 
 [![Sponsor me](https://github.com/overtrue/overtrue/blob/master/sponsor-me-button-s.svg?raw=true)](https://github.com/sponsors/overtrue)
 
 ## Installing
 
 ```shell
-composer require overtrue/laravel-package -vvv
+composer require overtrue/laravel-redius -vvv
 ```
 
 ### Migrations
