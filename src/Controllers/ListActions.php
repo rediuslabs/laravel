@@ -2,7 +2,7 @@
 
 namespace Redius\Controllers;
 
-class ListCreationFields
+class ListActions
 {
     public function __invoke()
     {

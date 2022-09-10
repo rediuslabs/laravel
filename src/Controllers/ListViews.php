@@ -2,7 +2,7 @@
 
 namespace Redius\Controllers;
 
-class ListDetailFields
+class ListViews
 {
     public function __invoke()
     {

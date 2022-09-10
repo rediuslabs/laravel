@@ -2,7 +2,7 @@
 
 namespace Redius\Controllers;
 
-class ListUpdateFields
+class GetResource
 {
     public function __invoke()
     {
