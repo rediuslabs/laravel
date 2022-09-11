@@ -4,8 +4,8 @@ namespace Redius\Controllers;
 
 class DeleteResource
 {
-    public function __invoke()
+    public function __invoke(): \Illuminate\Http\Response
     {
-        // TODO: Implement __invoke() method.
+        return \response()->noContent();
     }
 }

@@ -1,0 +1,20 @@
+<?php
+
+namespace {{namespace}};
+
+use Redius\Fields\ID;
+use Redius\Fields\CreatedAt;
+use Redius\Fields\UpdatedAt;
+use Redius\Resource;
+
+class {{class}} extends Resource
+{
+    public function fields(): array
+    {
+        return [
+            ID::make()->sortable(),
+            CreatedAt::make(),
+            UpdatedAt::make(),
+        ];
+    }
+}

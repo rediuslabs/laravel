@@ -10,42 +10,223 @@ use Redius\Contracts\FieldInterface;
 
 class Field implements FieldInterface
 {
-    protected array $attributes = [];
+    protected string $name;
 
-    public static function make(string $name, string $label = ''): static
+    protected string $label;
+
+    protected bool $required = false;
+
+    protected bool $sortable = false;
+
+    protected bool $seachable = false;
+
+    protected bool $filterable = false;
+
+    protected bool $readonly = false;
+
+    protected bool $showOnIndex = true;
+
+    protected bool $showOnDetail = true;
+
+    protected bool $showOnCreation = true;
+
+    protected bool $showOnUpdate = true;
+
+    protected string $component = 'text-field';
+
+    protected array $componentAttributes = [];
+
+    public static function make(string $name = '', string $label = ''): static
     {
         return new static($name, $label);
     }
 
-    public function __construct(protected string $name, protected string $label = '')
+    public function __construct(string $name = '', string $label = '')
     {
+        $this->name = $name ?: Str::snake(class_basename(static::class));
+        $this->label = $label ?: Str::title($name);
     }
 
-    public function name(): string
+    public function label(string $label): static
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function sortable(): static
+    {
+        $this->sortable = true;
+
+        return $this;
+    }
+
+    public function searchable(): static
+    {
+        $this->seachable = true;
+
+        return $this;
+    }
+
+    public function filterable(): static
+    {
+        $this->filterable = true;
+
+        return $this;
+    }
+
+    public function required(): static
+    {
+        $this->required = true;
+
+        return $this;
+    }
+
+    public function readonly(): static
+    {
+        $this->readonly = true;
+
+        return $this;
+    }
+
+    public function component(string $name, array $attributes = []): static
+    {
+        $this->component = $name;
+        $this->componentAttributes = $attributes;
+
+        return $this;
+    }
+
+    public function showOnForms(): static
+    {
+        $this->showOnCreation = $this->showOnUpdate = true;
+
+        return $this;
+    }
+
+    public function hideOnForms(): static
+    {
+        $this->showOnCreation = $this->showOnUpdate = false;
+
+        return $this;
+    }
+
+    public function showOnIndex(): static
+    {
+        $this->showOnIndex = true;
+
+        return $this;
+    }
+
+    public function hideOnIndex(): static
+    {
+        $this->showOnIndex = false;
+
+        return $this;
+    }
+
+    public function showOnDetail(): static
+    {
+        $this->showOnDetail = true;
+
+        return $this;
+    }
+
+    public function hideOnDetail(): static
+    {
+        $this->showOnDetail = false;
+
+        return $this;
+    }
+
+    public function showOnCreation(): static
+    {
+        $this->showOnCreation = true;
+
+        return $this;
+    }
+
+    public function hideOnCreation(): static
+    {
+        $this->showOnCreation = false;
+
+        return $this;
+    }
+
+    public function showOnUpdate(): static
+    {
+        $this->showOnUpdate = true;
+
+        return $this;
+    }
+
+    public function hideOnUpdate(): static
+    {
+        $this->showOnUpdate = false;
+
+        return $this;
+    }
+
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function label(): string
+    public function getLabel(): string
     {
-        return $this->label ?? $this->name;
+        return $this->label;
     }
 
-    public function component(): ComponentInterface
+    public function getComponent(): ComponentInterface
     {
         $name = Str::studly(\class_basename($this));
 
-        return new Component("{$name}Field", $this->attributes);
+        return new Component("{$name}Field", $this->componentAttributes);
     }
 
-    #[ArrayShape(['name' => 'string', 'label' => 'string', 'component' => "\Redius\Component"])]
-    public function toArray(): array
+    public function isSortable(): bool
     {
-        return [
-            'name' => $this->name(),
-            'label' => $this->label(),
-            'component' => $this->component(),
-        ];
+        return $this->sortable;
+    }
+
+    public function isSearchable(): bool
+    {
+        return $this->seachable;
+    }
+
+    public function isFilterable(): bool
+    {
+        return $this->filterable;
+    }
+
+    public function isRequired(): bool
+    {
+        return $this->required;
+    }
+
+    public function isReadonly(): bool
+    {
+        return $this->readonly;
+    }
+
+    public function isShowOnIndex(): bool
+    {
+        return $this->showOnIndex;
+    }
+
+    public function isShowOnDetail(): bool
+    {
+        return $this->showOnDetail;
+    }
+
+    public function isShowOnCreation(): bool
+    {
+        return $this->showOnCreation;
+    }
+
+    public function isShowOnUpdate(): bool
+    {
+        return $this->showOnUpdate;
     }
 
     public function toJson($options = 0): bool|string
@@ -53,53 +234,13 @@ class Field implements FieldInterface
         return json_encode($this->toArray(), $options);
     }
 
-    public function isSortable(): bool
+    #[ArrayShape(['name' => 'string', 'label' => 'string', 'component' => "\Redius\Component"])]
+    public function toArray(): array
     {
-        return false;
-    }
-
-    public function isSearchable(): bool
-    {
-        return false;
-    }
-
-    public function isFilterable(): bool
-    {
-        return false;
-    }
-
-    public function isRequired(): bool
-    {
-        return false;
-    }
-
-    public function isReadonly(): bool
-    {
-        return false;
-    }
-
-    public function isHidden(): bool
-    {
-        return false;
-    }
-
-    public function isShowOnIndex(): bool
-    {
-        return false;
-    }
-
-    public function isShowOnDetail(): bool
-    {
-        return false;
-    }
-
-    public function isShowOnCreation(): bool
-    {
-        return false;
-    }
-
-    public function isShowOnUpdate(): bool
-    {
-        return false;
+        return [
+            'name' => $this->getName(),
+            'label' => $this->getLabel(),
+            'component' => $this->getComponent(),
+        ];
     }
 }

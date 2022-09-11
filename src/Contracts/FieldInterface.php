@@ -7,9 +7,9 @@ use Illuminate\Contracts\Support\Jsonable;
 
 interface FieldInterface extends Arrayable, Jsonable
 {
-    public function name(): string;
+    public function getName(): string;
 
-    public function label(): string;
+    public function getLabel(): string;
 
     public function isSortable(): bool;
 
@@ -21,8 +21,6 @@ interface FieldInterface extends Arrayable, Jsonable
 
     public function isReadonly(): bool;
 
-    public function isHidden(): bool;
-
     public function isShowOnIndex(): bool;
 
     public function isShowOnDetail(): bool;
@@ -31,5 +29,5 @@ interface FieldInterface extends Arrayable, Jsonable
 
     public function isShowOnUpdate(): bool;
 
-    public function component(): ComponentInterface;
+    public function getComponent(): ComponentInterface;
 }
