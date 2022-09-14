@@ -22,6 +22,7 @@ class Component implements ComponentInterface
         return $this->attributes;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();

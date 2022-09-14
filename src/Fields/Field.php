@@ -8,6 +8,9 @@ use Redius\Component;
 use Redius\Contracts\ComponentInterface;
 use Redius\Contracts\FieldInterface;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Field implements FieldInterface
 {
     protected string $name;
@@ -229,6 +232,7 @@ class Field implements FieldInterface
         return $this->showOnUpdate;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
