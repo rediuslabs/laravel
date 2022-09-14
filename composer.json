@@ -66,7 +66,7 @@
         "check-style": "vendor/bin/pint --test",
         "fix-style": "vendor/bin/pint",
         "test": "phpunit --colors",
-        "phpstan": "phpstan analyse",
+        "phpstan": "phpstan analyse ./src",
         "psalm": "psalm --show-info=true --no-cache",
         "psalm-fix": "psalm --no-cache --alter --issues=MissingReturnType,MissingParamType"
     },
