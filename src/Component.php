@@ -22,6 +22,11 @@ class Component implements ComponentInterface
         return $this->attributes;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     #[ArrayShape(['name' => 'string', 'attributes' => 'array'])]
     public function toArray(): array
     {

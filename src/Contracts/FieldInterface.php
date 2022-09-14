@@ -5,7 +5,7 @@ namespace Redius\Contracts;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-interface FieldInterface extends Arrayable, Jsonable
+interface FieldInterface extends Arrayable, Jsonable, \JsonSerializable
 {
     public function getName(): string;
 

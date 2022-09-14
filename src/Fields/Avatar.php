@@ -6,11 +6,11 @@ class Avatar extends Field
 {
     public function rounded()
     {
-        $this->attributes['type'] = 'rounded';
+        $this->componentAttributes['type'] = 'rounded';
     }
 
     public function roundedFull()
     {
-        $this->attributes['type'] = 'rounded-full';
+        $this->componentAttributes['type'] = 'rounded-full';
     }
 }

@@ -229,6 +229,11 @@ class Field implements FieldInterface
         return $this->showOnUpdate;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     public function toJson($options = 0): bool|string
     {
         return json_encode($this->toArray(), $options);

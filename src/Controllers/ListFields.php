@@ -2,19 +2,17 @@
 
 namespace Redius\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Redius\Contracts\ResourceInterface;
+use Redius\Transformers\FieldTransformer;
 
 class ListFields
 {
-    public function __invoke(Request $request, string $model)
+    use BuildResourceResponse;
+
+    public function __invoke(Request $request, ResourceInterface $resource): JsonResponse
     {
-        return [[
-            'id' => [
-                'type' => 'number',
-                'label' => 'ID',
-                'sortable' => true,
-                'searchable' => true,
-            ],
-        ]];
+        return $this->buildCollectionResponse($resource->fields(), new FieldTransformer, 'fields');
     }
 }
