@@ -2,8 +2,14 @@
 
 namespace Redius;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Redius\Contracts\ResourceInterface;
+use Redius\Contracts\TransformerInterface;
+use Redius\Exceptions\ResourceModelNotFoundException;
+use Redius\Transformers\ClosureTransformer;
+use Redius\Transformers\Transformer;
 
 abstract class Resource implements ResourceInterface
 {
@@ -12,12 +18,19 @@ abstract class Resource implements ResourceInterface
         return Str::snake(class_basename($this));
     }
 
+    /**
+     * @throws ResourceModelNotFoundException
+     */
     public function model(): string
     {
-        $namespace = config('redius.model_namespace');
+        $namespace = "App\\Models\\";
         $basename = Str::studly(Str::singular($this->name()));
 
-        return "{$namespace}\\{$basename}";
+        return match (true) {
+            \class_exists("App\\Models\\{$basename}") => "App\\Models\\{$basename}",
+            \class_exists("App\\{$basename}") => "App\\Models\\{$basename}",
+            default => throw ResourceModelNotFoundException::make($basename),
+        };
     }
 
     public function label(): string
@@ -48,6 +61,21 @@ abstract class Resource implements ResourceInterface
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function transformer(): TransformerInterface
+    {
+        return ClosureTransformer::make(function (array|Collection|Model $model) {
+            if ($model instanceof Collection) {
+                return $model->map(fn ($model) => $this->transform($model))->toArray();
+            }
+
+            if ($model instanceof Model) {
+                return $model->toArray();
+            }
+
+            return $model;
+        });
     }
 
     abstract public function fields(): array;

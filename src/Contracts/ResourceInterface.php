@@ -2,6 +2,9 @@
 
 namespace Redius\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
 interface ResourceInterface
 {
     public function name(): string;
@@ -21,4 +24,6 @@ interface ResourceInterface
     public function middlewares(): array;
 
     public function authorize(): bool;
+
+    public function transformer(): TransformerInterface;
 }

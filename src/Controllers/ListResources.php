@@ -2,15 +2,26 @@
 
 namespace Redius\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Redius\Contracts\ResourceInterface;
+use Redius\Transformers\ClosureTransformer;
+use function app;
+use function is_callable;
 
 class ListResources
 {
-    public function __invoke(Request $request, string $model)
-    {
-        $model = config('redius.model_namespace').Str::studly(Str::singular($model));
+    use BuildResourceResponse;
 
-        return $model::all();
+    public function __invoke(Request $request, ResourceInterface $resource): JsonResponse
+    {
+        if (is_callable([$resource, 'index'])) {
+            return $resource->index($request);
+        }
+
+        $paginator = app($resource->model())->paginate($request->get('per_page', 15));
+
+        return $this->buildCollectionResponse($paginator, $resource->transformer(), Str::plural($resource->name()));
     }
 }

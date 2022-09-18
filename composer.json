@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=8.1",
-        "laravel/framework": "^9.4",
+        "illuminate/support": "^9.4",
         "phpstan/phpstan": "^1.4",
         "league/fractal": "^0.20.1"
     },
