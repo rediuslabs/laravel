@@ -66,7 +66,7 @@ abstract class Resource implements ResourceInterface
     {
         return ClosureTransformer::make(function (array|Collection|Model $model) {
             if ($model instanceof Collection) {
-                return $model->map(fn ($model) => $this->transform($model))->toArray();
+                return $model->map->toArray();
             }
 
             if ($model instanceof Model) {
