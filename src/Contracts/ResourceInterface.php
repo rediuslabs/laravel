@@ -2,9 +2,6 @@
 
 namespace Redius\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-
 interface ResourceInterface
 {
     public function name(): string;

@@ -2,10 +2,6 @@
 
 namespace Redius\Transformers;
 
-use League\Fractal\TransformerAbstract;
-use Redius\Contracts\FieldInterface;
-use Redius\Contracts\TransformerInterface;
-
 class ClosureTransformer extends Transformer
 {
     public function __construct(protected \Closure $callback)

@@ -9,7 +9,6 @@ use Redius\Contracts\ResourceInterface;
 use Redius\Contracts\TransformerInterface;
 use Redius\Exceptions\ResourceModelNotFoundException;
 use Redius\Transformers\ClosureTransformer;
-use Redius\Transformers\Transformer;
 
 abstract class Resource implements ResourceInterface
 {
@@ -23,7 +22,7 @@ abstract class Resource implements ResourceInterface
      */
     public function model(): string
     {
-        $namespace = "App\\Models\\";
+        $namespace = 'App\\Models\\';
         $basename = Str::studly(Str::singular($this->name()));
 
         return match (true) {

@@ -4,5 +4,4 @@ namespace Redius\Contracts;
 
 interface TransformerInterface
 {
-
 }

@@ -2,13 +2,12 @@
 
 namespace Redius\Controllers;
 
+use function app;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Redius\Contracts\ResourceInterface;
-use Redius\Transformers\ClosureTransformer;
-use function app;
 use function is_callable;
+use Redius\Contracts\ResourceInterface;
 
 class ListResources
 {
