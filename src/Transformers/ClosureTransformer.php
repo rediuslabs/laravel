@@ -2,6 +2,9 @@
 
 namespace Redius\Transformers;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class ClosureTransformer extends Transformer
 {
     public function __construct(protected \Closure $callback)
