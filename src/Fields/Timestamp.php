@@ -8,6 +8,8 @@ class Timestamp extends Field
 
     protected string $component = 'timestamp-field';
 
+    protected bool $sortable = true;
+
     protected array $componentAttributes = [
         'format' => 'YYYY-MM-DD HH:mm:ss',
     ];

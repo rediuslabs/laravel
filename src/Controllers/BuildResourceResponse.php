@@ -31,12 +31,14 @@ trait BuildResourceResponse
 
     protected function buildCollectionResponse($collection, TransformerAbstract $transformer, ?string $resourceKey = null, $status = 200, array $headers = []): JsonResponse
     {
-        if ($collection instanceof LengthAwarePaginator) {
+        if ($collection instanceof Paginator) {
             $resource = new Collection($collection->getCollection(), $transformer, $resourceKey);
-            $resource->setPaginator(new IlluminateLengthAwarePaginatorAdapter($collection));
-        } elseif ($collection instanceof Paginator) {
-            $resource = new Collection($collection->getCollection(), $transformer, $resourceKey);
-            $resource->setPaginator(new IlluminatePaginatorAdapter($collection));
+
+            if ($collection instanceof LengthAwarePaginator) {
+                $resource->setPaginator(new IlluminateLengthAwarePaginatorAdapter($collection));
+            } else {
+                $resource->setPaginator(new IlluminatePaginatorAdapter($collection));
+            }
         } elseif ($collection instanceof CursorPaginator) {
             $resource = new Collection($collection->getCollection(), $transformer, $resourceKey);
             $resource->setCursor(new IlluminateCursorPaginatorAdapter($collection));

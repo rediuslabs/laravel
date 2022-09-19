@@ -17,6 +17,8 @@ class Field implements FieldInterface
 
     protected string $label;
 
+    protected bool $isPrimaryKey = false;
+
     protected bool $required = false;
 
     protected bool $sortable = false;
@@ -47,7 +49,7 @@ class Field implements FieldInterface
     public function __construct(string $name = '', string $label = '')
     {
         $this->name = $name ?: Str::snake(class_basename(static::class));
-        $this->label = $label ?: Str::title($name);
+        $this->label = $label ?: Str::headline($name);
     }
 
     public function label(string $label): static
@@ -249,6 +251,16 @@ class Field implements FieldInterface
         return [
             'name' => $this->getName(),
             'label' => $this->getLabel(),
+            'sortable' => $this->isSortable(),
+            'searchable' => $this->isSearchable(),
+            'filterable' => $this->isFilterable(),
+            'required' => $this->isRequired(),
+            'readonly' => $this->isReadonly(),
+            'showOnIndex' => $this->isShowOnIndex(),
+            'showOnDetail' => $this->isShowOnDetail(),
+            'showOnCreation' => $this->isShowOnCreation(),
+            'showOnUpdate' => $this->isShowOnUpdate(),
+            'isPrimaryKey' => $this->isPrimaryKey,
             'component' => $this->getComponent(),
         ];
     }
