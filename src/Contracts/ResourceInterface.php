@@ -2,6 +2,8 @@
 
 namespace Redius\Contracts;
 
+use Illuminate\Database\Eloquent\Scope;
+
 interface ResourceInterface
 {
     public function name(): string;
@@ -18,9 +20,13 @@ interface ResourceInterface
 
     public function filters(): array;
 
+    public function scopes(): array;
+
     public function middlewares(): array;
 
     public function authorize(): bool;
+
+    public function defaultScope(): ?Scope;
 
     public function transformer(): TransformerInterface;
 }

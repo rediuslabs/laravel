@@ -54,7 +54,7 @@ class RediusServiceProvider extends ServiceProvider
 
             Route::get('{rediusResourceName}/-/fields', Controllers\ListFields::class)->name('resource.fields');
             Route::get('{rediusResourceName}/-/filters', Controllers\ListFilters::class)->name('resource.filters');
-            Route::get('{rediusResourceName}/-/views', Controllers\ListViews::class)->name('resource.views');
+            Route::get('{rediusResourceName}/-/scopes', Controllers\ListScopes::class)->name('resource.scopes');
             Route::get('{rediusResourceName}/-/actions', Controllers\ListActions::class)->name('resource.actions');
         });
 

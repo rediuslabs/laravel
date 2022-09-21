@@ -15,11 +15,14 @@ use League\Fractal\TransformerAbstract;
 use Redius\Adapters\IlluminateCursorPaginatorAdapter;
 use Redius\Adapters\IlluminatePaginatorAdapter;
 use Redius\Redius;
+use Redius\Transformers\Transformer;
 
 trait BuildResourceResponse
 {
-    protected function buildItemResponse($item, TransformerAbstract $transformer, $status = 200, array $headers = []): JsonResponse
+    protected function buildItemResponse($item, ?TransformerAbstract $transformer = null, $status = 200, array $headers = []): JsonResponse
     {
+        $transformer ??= new Transformer();
+
         $resource = new Item($item, $transformer);
 
         if ($item instanceof Model && $item->wasRecentlyCreated) {
@@ -29,8 +32,10 @@ trait BuildResourceResponse
         return $this->buildResourceResponse($resource, $status, $headers);
     }
 
-    protected function buildCollectionResponse($collection, TransformerAbstract $transformer, ?string $resourceKey = null, $status = 200, array $headers = []): JsonResponse
+    protected function buildCollectionResponse($collection, ?TransformerAbstract $transformer = null, ?string $resourceKey = null, $status = 200, array $headers = []): JsonResponse
     {
+        $transformer ??= new Transformer();
+
         if ($collection instanceof Paginator) {
             $resource = new Collection($collection->getCollection(), $transformer, $resourceKey);
 

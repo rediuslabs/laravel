@@ -2,9 +2,11 @@
 
 namespace Redius;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\JsonApiSerializer;
+use Redius\Contracts\ResourceInterface;
 
 class Redius
 {
@@ -30,5 +32,12 @@ class Redius
     public static function responseManager()
     {
         return tap(new Manager(), fn ($manager) => $manager->setSerializer(new JsonApiSerializer()));
+    }
+
+    public static function scopes(ResourceInterface $resource): Collection
+    {
+        $scopes = array_filter([$resource->defaultScope(), ...$resource->scopes()]);
+
+        return ScopeResolver::normalizeScopes($scopes);
     }
 }

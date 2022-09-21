@@ -3,6 +3,7 @@
 namespace Redius;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope as EloquentScope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Redius\Contracts\ResourceInterface;
@@ -12,6 +13,8 @@ use Redius\Transformers\ClosureTransformer;
 
 abstract class Resource implements ResourceInterface
 {
+    protected bool $defaultScope = true;
+
     public function name(): string
     {
         return Str::snake(class_basename($this));
@@ -52,6 +55,11 @@ abstract class Resource implements ResourceInterface
         return [];
     }
 
+    public function scopes(): array
+    {
+        return [];
+    }
+
     public function middlewares(): array
     {
         return [];
@@ -75,6 +83,14 @@ abstract class Resource implements ResourceInterface
 
             return $model;
         });
+    }
+
+    /**
+     * @throws Exceptions\InvalidArgumentException
+     */
+    public function defaultScope(): ?EloquentScope
+    {
+        return $this->defaultScope ? Scope::default() : null;
     }
 
     abstract public function fields(): array;
