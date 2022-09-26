@@ -2,6 +2,7 @@
 
 namespace Redius;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
 use Illuminate\Support\Collection;
@@ -33,6 +34,14 @@ abstract class Resource implements ResourceInterface
             \class_exists("App\\{$basename}") => "App\\Models\\{$basename}",
             default => throw ResourceModelNotFoundException::make($basename),
         };
+    }
+
+    /**
+     * @throws ResourceModelNotFoundException
+     */
+    public function query(): Builder
+    {
+        return app($this->model())->query();
     }
 
     public function label(): string

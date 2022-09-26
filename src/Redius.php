@@ -40,4 +40,9 @@ class Redius
 
         return ScopeResolver::normalizeScopes($scopes);
     }
+
+    public static function scope(ResourceInterface $resource, string $id)
+    {
+        return static::scopes($resource)->first(fn ($scope) => $scope->is($id));
+    }
 }

@@ -17,9 +17,9 @@ class Scope implements EloquentScope
     /**
      * @throws InvalidArgumentException
      */
-    public static function make(Closure|EloquentScope|string $scope, ?string $label = null): static
+    public static function make(Closure|EloquentScope|string $scope, ?string $label = null, ?string $id = null): static
     {
-        return new static($scope, $label);
+        return new static($scope, $label, $id);
     }
 
     /**
@@ -33,11 +33,10 @@ class Scope implements EloquentScope
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(protected Closure|EloquentScope|string $scope, protected ?string $label = null)
+    public function __construct(protected Closure|EloquentScope|string $scope, protected ?string $label = null, protected ?string $id = null)
     {
         if ($this->scope instanceof self) {
-            $this->scope = $this->scope->scope;
-            $this->label = $this->scope->label;
+            return $this->scope;
         }
 
         if ($this->scope instanceof Closure && empty($this->label)) {
@@ -55,16 +54,24 @@ class Scope implements EloquentScope
         if ($this->scope instanceof EloquentScope) {
             $this->label ??= Str::title(Str::snake(class_basename($this->scope::class)));
         }
-    }
 
-    public function id(): string
-    {
-        return \is_string($this->scope) ? Str::slug($this->scope) : \spl_object_id($this->scope);
+        $this->id ??= \md5($this->label);
     }
 
     public function is(string $id): bool
     {
-        return $this->id() === $id;
+        return $this->id === $id;
+    }
+
+    public function id(?string $id = null)
+    {
+        if (empty($id)) {
+            return $this->id;
+        }
+
+        $this->id = $id;
+
+        return $this;
     }
 
     public function name(?string $label = null): string|static

@@ -2,6 +2,7 @@
 
 namespace Redius\Contracts;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope;
 
 interface ResourceInterface
@@ -25,6 +26,8 @@ interface ResourceInterface
     public function middlewares(): array;
 
     public function authorize(): bool;
+
+    public function query(): Builder;
 
     public function defaultScope(): ?Scope;
 
