@@ -2,15 +2,13 @@
 
 namespace Redius\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
-use Redius\Redius;
-use Redius\Scope;
 use function app;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use function is_callable;
 use Redius\Contracts\ResourceInterface;
+use Redius\Redius;
 
 class ListResources
 {
