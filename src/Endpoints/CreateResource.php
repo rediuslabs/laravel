@@ -1,8 +1,8 @@
 <?php
 
-namespace Redius\Controllers;
+namespace Redius\Endpoints;
 
-class GetResource
+class CreateResource
 {
     public function __invoke()
     {

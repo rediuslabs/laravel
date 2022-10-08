@@ -1,6 +1,6 @@
 <?php
 
-namespace Redius\Controllers;
+namespace Redius\Endpoints;
 
 use function app;
 use Illuminate\Http\JsonResponse;
@@ -22,13 +22,15 @@ class ListResources
 
         $query = $resource->query();
 
-        if ($request->has('scope')) {
+        if ($request->filled('scope')) {
             $scope = Redius::scope($resource, $request->get('scope'));
 
             if ($scope) {
                 $scope->apply($query, app($resource->model()));
             }
         }
+
+        // todo: filter
 
         $paginator = $query->paginate($request->get('per_page', 15));
 

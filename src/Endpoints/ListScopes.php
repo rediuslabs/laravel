@@ -1,6 +1,6 @@
 <?php
 
-namespace Redius\Controllers;
+namespace Redius\Endpoints;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

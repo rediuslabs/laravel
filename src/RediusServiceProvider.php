@@ -40,22 +40,24 @@ class RediusServiceProvider extends ServiceProvider
     {
         Route::group([
             'prefix' => 'redius',
-            'namespace' => 'Redius\Controllers',
+            'namespace' => 'Redius',
             'as' => 'redius.',
             'middleware' => [
                 SubstituteBindings::class,
             ],
         ], function () {
-            Route::get('{rediusResourceName}', Controllers\ListResources::class)->name('resources.list');
-            Route::post('{rediusResourceName}', Controllers\CreateResource::class)->name('resource.store');
-            Route::get('{rediusResourceName}/{rediusResourceId}', Controllers\GetResource::class)->name('resource.show');
-            Route::patch('{rediusResourceName}/{rediusResourceId}', Controllers\UpdateResource::class)->name('resource.update');
-            Route::delete('{rediusResourceName}/{rediusResourceId}', Controllers\DeleteResource::class)->name('resource.delete');
+            Route::get('{rediusResourceName}', Endpoints\ListResources::class)->name('resources.list');
+            Route::post('{rediusResourceName}', Endpoints\CreateResource::class)->name('resource.store');
+            Route::get('{rediusResourceName}/{rediusResourceId}', Endpoints\GetResource::class)->name('resource.show');
+            Route::patch('{rediusResourceName}/{rediusResourceId}', Endpoints\UpdateResource::class)->name('resource.update');
+            Route::delete('{rediusResourceName}/{rediusResourceId}', Endpoints\DeleteResource::class)->name('resource.delete');
 
-            Route::get('{rediusResourceName}/-/fields', Controllers\ListFields::class)->name('resource.fields');
-            Route::get('{rediusResourceName}/-/filters', Controllers\ListFilters::class)->name('resource.filters');
-            Route::get('{rediusResourceName}/-/scopes', Controllers\ListScopes::class)->name('resource.scopes');
-            Route::get('{rediusResourceName}/-/actions', Controllers\ListActions::class)->name('resource.actions');
+            Route::get('{rediusResourceName}/-/fields', Endpoints\ListFields::class)->name('resource.fields');
+            Route::get('{rediusResourceName}/-/filters', Endpoints\ListFilters::class)->name('resource.filters');
+            Route::get('{rediusResourceName}/-/scopes', Endpoints\ListScopes::class)->name('resource.scopes');
+            Route::get('{rediusResourceName}/-/actions', Endpoints\ListActions::class)->name('resource.actions');
+
+            Route::post('{rediusResourceName}/-/actions', Endpoints\PerformAction::class)->name('resource.perform-action');
         });
 
         Route::bind('rediusResourceName', function ($resourceName) {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Redius\Controllers;
+namespace Redius\Endpoints;
 
-class ListActions
+class ListFilters
 {
     public function __invoke()
     {

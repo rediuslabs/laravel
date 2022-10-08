@@ -1,8 +1,8 @@
 <?php
 
-namespace Redius\Controllers;
+namespace Redius\Endpoints;
 
-class UpdateResource
+class ListActions
 {
     public function __invoke()
     {
