@@ -3,7 +3,6 @@
 namespace Redius\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ActionRequest extends FormRequest
 {
