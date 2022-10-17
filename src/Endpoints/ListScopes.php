@@ -17,7 +17,7 @@ class ListScopes
         $scopes = Redius::scopes($resource)->map(function (Scope $scope) {
             return [
                 'id' => $scope->id(),
-                'name' => $scope->name(),
+                'label' => $scope->label(),
             ];
         });
 

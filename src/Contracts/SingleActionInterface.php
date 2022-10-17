@@ -2,9 +2,6 @@
 
 namespace Redius\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
-
-interface SingleActionInterface
+interface SingleActionInterface extends ActionInterface
 {
-    public function handleSingle(ResourceInterface $resource, Model $model, array $fields = []);
 }

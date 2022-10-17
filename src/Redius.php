@@ -34,11 +34,18 @@ class Redius
         return tap(new Manager(), fn ($manager) => $manager->setSerializer(new JsonApiSerializer()));
     }
 
+    public static function actions(ResourceInterface $resource): Collection
+    {
+        $scopes = array_filter($resource->actions());
+
+        return ActionResolver::normalize($scopes);
+    }
+
     public static function scopes(ResourceInterface $resource): Collection
     {
         $scopes = array_filter([$resource->defaultScope(), ...$resource->scopes()]);
 
-        return ScopeResolver::normalizeScopes($scopes);
+        return ScopeResolver::normalize($scopes);
     }
 
     public static function scope(ResourceInterface $resource, string $id)

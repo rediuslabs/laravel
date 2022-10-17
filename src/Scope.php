@@ -63,7 +63,7 @@ class Scope implements EloquentScope
         return $this->id === $id;
     }
 
-    public function id(?string $id = null)
+    public function id(?string $id = null): string|static
     {
         if (empty($id)) {
             return $this->id;
@@ -74,7 +74,7 @@ class Scope implements EloquentScope
         return $this;
     }
 
-    public function name(?string $label = null): string|static
+    public function label(?string $label = null): string|static
     {
         if (empty($label)) {
             return $this->label;

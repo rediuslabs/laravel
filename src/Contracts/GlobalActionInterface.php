@@ -2,7 +2,6 @@
 
 namespace Redius\Contracts;
 
-interface GlobalActionInterface
+interface GlobalActionInterface extends ActionInterface
 {
-    public function handleGlobal(ResourceInterface $resource, array $fields = []);
 }

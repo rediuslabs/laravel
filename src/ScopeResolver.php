@@ -6,9 +6,23 @@ use Redius\Exceptions\InvalidArgumentException;
 
 class ScopeResolver
 {
-    public static function normalizeScopes(array $scopes): \Illuminate\Support\Collection
+    public static function normalize(array $scopes): \Illuminate\Support\Collection
     {
-        return collect($scopes)->map(function ($scope) {
+        return collect($scopes)->map(function ($scope, $key) {
+            if (\is_string($scope) && \is_subclass_of($scope, Scope::class)) {
+                $scope = new $scope(\is_string($key) ? $key : null);
+            }
+
+            // 'scopeName' => Scope::class
+            if (is_string($scope) && class_exists($scope)) {
+                $scope = new Scope($scope, \is_string($key) ? $key : $scope);
+            }
+
+            // 'scopeName' => fn() => 'code'
+            if (\is_string($key) && $scope instanceof \Closure) {
+                $scope = new Scope($scope, $key);
+            }
+
             if (is_string($scope) || ($scope instanceof \Illuminate\Database\Eloquent\Scope && ! ($scope instanceof Scope))) {
                 $scope = new Scope($scope);
             }

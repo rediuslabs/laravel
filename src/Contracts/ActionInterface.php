@@ -2,9 +2,19 @@
 
 namespace Redius\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Redius\Requests\ActionRequest;
 
-interface ActionInterface
+interface ActionInterface extends Arrayable, Jsonable
 {
-    public function handle(ResourceInterface $resource, Model $model, array $fields = []);
+    public function id(): int|string;
+
+    public function label(?string $label = null): static|string;
+
+    public function methods(?array $methods = []): static|array;
+
+    public function middlewares(?array $middlewares = []): static|array;
+
+    public function handle(ResourceInterface $resource, ActionRequest $request);
 }
